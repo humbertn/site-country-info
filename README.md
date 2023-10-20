@@ -1,24 +1,23 @@
-# site-country-info
+# Web site to consume country-info API
 
-## Project setup
-```
-npm install
-```
+This is a Vue.js web application that uses [country-info API](https://github.com/humbertn/country-info) to consume states and county information.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+# Pre requisites
 
-### Compiles and minifies for production
-```
-npm run build
-```
+This web site is running on a Docker container with nginx, so it is required to have Docker installed.
 
-### Lints and fixes files
+Before starting this project please run the API
+- Run [country-info API](https://github.com/humbertn/country-info)
+
+
+# To Run
+
+
 ```
-npm run lint
+docker compose up -d
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+To navigate in this website please visit http://localhost:8080
+
+# Note
+This project is intended for local usage only.
