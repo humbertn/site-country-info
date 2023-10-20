@@ -1,0 +1,18 @@
+version: '3'
+services:
+  website-country-info:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: website-country-info
+    ports:
+      - "8080:80"
+    depends_on:
+      - country-info
+    networks:
+      - country-info_api_network
+
+networks:
+  country-info_api_network:
+    external:
+      name: country-info_api_network
