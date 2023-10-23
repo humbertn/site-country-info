@@ -10,10 +10,17 @@
     <div class="container">
       <div class="row">
         <div class="col">
-          <StateList :states="states"/>
+          <StateList 
+            :states="states" 
+            :highlightedStates="highlightedStates"
+            @highlight-state="handleHighlightState"/>
         </div>
         <div class="col">
-          <StateList :isSearchable="true" :states="states"/>
+          <StateList 
+            :isSearchable="true" 
+            :states="states" 
+            :highlightedStates="highlightedStates"
+            @highlight-state="handleHighlightState"/>
         </div>  
       </div>
     </div>    
@@ -29,6 +36,7 @@ export default {
   data() {
       return {        
         states: [],
+        highlightedStates: [],
       };
     },
   mounted() {
@@ -42,6 +50,15 @@ export default {
           
         } catch(error) {
           console.error('Error fetching states:', error);
+        }
+      },
+      handleHighlightState(state) {
+        const index = this.highlightedStates.indexOf(state);
+
+        if (index === -1) {          
+          this.highlightedStates.push(state);
+        } else {          
+          this.highlightedStates.splice(index, 1);
         }
       },
   },

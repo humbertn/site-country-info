@@ -16,7 +16,7 @@
           class="list-group-item"
           @click="showStateDetails(state)"
           @dblclick="highlightState(state)"
-          :class="{ 'active': state === highlightedState }"
+          :class="{ 'active': isHighlighted(state) }"
           >
           {{ state.state }}
         </li>
@@ -44,7 +44,13 @@
         default() {
           return []
         },
-      }      
+      },
+      highlightedStates: {
+        type: Array,
+        default() {
+          return []
+        }
+      }   
     },
     data() {
       return {        
@@ -53,6 +59,7 @@
         searchQuery: "",
         singleClickTimeout: null,
         doubleClickFlag: false,
+        
       };
     },
     computed: {    
@@ -75,10 +82,15 @@
       highlightState(state) {
         this.doubleClickFlag = true;
         this.singleClickTimeout = null,
-        this.highlightedState = state === this.highlightedState ? null : state;
+
+        this.$emit('highlight-state', state);
+        
         setTimeout(() => {
           this.doubleClickFlag = false;
         }, 400);
+      },
+      isHighlighted(state) {
+        return this.highlightedStates.includes(state);
       },
     },
     components: {
