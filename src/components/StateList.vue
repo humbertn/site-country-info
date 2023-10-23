@@ -14,8 +14,8 @@
         v-for="state in filteredStates"
           :key="state.state"
           class="list-group-item"
-          @dblclick="showStateDetails(state)"
-          @click="highlightState(state)"
+          @click="showStateDetails(state)"
+          @dblclick="highlightState(state)"
           :class="{ 'active': state === highlightedState }"
           >
           {{ state.state }}
@@ -30,8 +30,7 @@
   </div>
 </template>
 
-<script>
-  import axios from "axios";
+<script>  
   import StateDetails from "./StateDetails.vue";
   
   export default {
@@ -40,17 +39,19 @@
         type: Boolean,
         default: false,
       },
+      states: {
+        type: Array,
+        default() {
+          return []
+        },
+      }      
     },
     data() {
-      return {
-        states: [],
+      return {        
         selectedState: null,
         highlightedState: null,
         searchQuery: "", 
       };
-    },
-    mounted() {
-      this.fetchStates();
     },
     computed: {    
       filteredStates() {
@@ -60,15 +61,6 @@
       },
     },
     methods: {
-      async fetchStates() {
-        try {
-          const response = await axios.get("/api/state");
-          this.states = response.data;
-          
-        } catch(error) {
-          console.error('Error fetching states:', error);
-        }
-      },
       showStateDetails(state) {
         this.selectedState = state;
       },
