@@ -50,7 +50,9 @@
       return {        
         selectedState: null,
         highlightedState: null,
-        searchQuery: "", 
+        searchQuery: "",
+        singleClickTimeout: null,
+        doubleClickFlag: false,
       };
     },
     computed: {    
@@ -62,10 +64,21 @@
     },
     methods: {
       showStateDetails(state) {
-        this.selectedState = state;
+        if (!this.doubleClickFlag) {
+          this.singleClickTimeout = setTimeout(() => {
+            if (!this.doubleClickFlag) {
+              this.selectedState = state;
+            }
+          }, 300);
+        }
       },
       highlightState(state) {
+        this.doubleClickFlag = true;
+        this.singleClickTimeout = null,
         this.highlightedState = state === this.highlightedState ? null : state;
+        setTimeout(() => {
+          this.doubleClickFlag = false;
+        }, 400);
       },
     },
     components: {
